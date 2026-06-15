@@ -1,150 +1,22 @@
 {
-  "id": "wundernotes-app",
   "name": "WunderNotes & Tasks",
   "short_name": "WunderNotes",
-  "description": "Aplicativo offline de tarefas e notas com backup e restauração via JSON. Gerencie suas listas com simplicidade, diretamente no seu dispositivo.",
-  "start_url": "/wundernotes/?source=pwa",
-  "scope": "/wundernotes/",
+  "description": "Aplicativo de Notas e Tarefas Inteligente",
+  "start_url": "./index.html",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "browser"],
-  "orientation": "any",
   "background_color": "#0f172a",
-  "theme_color": "#0f172a",
-  "lang": "pt-BR",
-  "dir": "ltr",
-  "categories": ["productivity", "utilities"],
-  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
-  "prefer_related_applications": false,
-  "related_applications": [],
+  "theme-color": "#0f172a",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/wundernotes/icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/wundernotes/icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/wundernotes/icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/wundernotes/icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/wundernotes/icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/wundernotes/icons/icon-192x192.png",
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23f59e0b' width='192' height='192'/><text x='96' y='135' font-size='120' font-weight='bold' text-anchor='middle' fill='white' font-family='Arial'>W</text></svg>",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/svg+xml"
     },
     {
-      "src": "/wundernotes/icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/wundernotes/icons/icon-512x512.png",
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%23f59e0b' width='512' height='512'/><text x='256' y='360' font-size='320' font-weight='bold' text-anchor='middle' fill='white' font-family='Arial'>W</text></svg>",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/wundernotes/icons/icon-maskable-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/wundernotes/icons/icon-maskable-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/svg+xml"
     }
-  ],
-  "screenshots": [
-    {
-      "src": "/wundernotes/screenshots/screenshot-mobile-tasks.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Tela de tarefas no celular"
-    },
-    {
-      "src": "/wundernotes/screenshots/screenshot-mobile-notes.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Tela de notas no celular"
-    },
-    {
-      "src": "/wundernotes/screenshots/screenshot-desktop.png",
-      "sizes": "1280x800",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Visão desktop do WunderNotes"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Nova Tarefa",
-      "short_name": "Tarefa",
-      "description": "Criar uma nova tarefa rapidamente",
-      "url": "/wundernotes/?action=new-task",
-      "icons": [
-        {
-          "src": "/wundernotes/icons/shortcut-task-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Nova Nota",
-      "short_name": "Nota",
-      "description": "Criar uma nova nota rapidamente",
-      "url": "/wundernotes/?action=new-note",
-      "icons": [
-        {
-          "src": "/wundernotes/icons/shortcut-note-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
-    }
-  ],
-  "protocol_handlers": [],
-  "edge_side_panel": {
-    "preferred_width": 400
-  },
-  "launch_handler": {
-    "client_mode": "focus-existing"
-  },
-  "handle_links": "preferred",
-  "scope_extensions": [],
-  "share_target": {
-    "action": "/wundernotes/share",
-    "method": "GET",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
+  ]
 }

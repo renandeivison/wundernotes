@@ -1,74 +1,59 @@
-const CACHE_NAME = 'wundernotes-v1';
-const urlsToCache = [
-  '/wundernotes/',
-  '/wundernotes/index.html',
-  '/wundernotes/manifest.json'
+const CACHE_NAME = 'wundernotes-v3.7';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.json',
+  'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'
 ];
 
-// Install event - cache files
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Cache aberto');
-        return cache.addAll(urlsToCache);
-      })
-      .catch(err => console.log('Erro ao cachear:', err))
+// Instalação do Service Worker e Cache dos arquivos
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS);
+    }).then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
-// Activate event - clean old caches
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
+// Ativação e limpeza de caches antigos
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((keys) => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Cache hit - return the response
-        if (response) {
-          return response;
+// Estratégia de Cache: Network First, falling back to cache
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    fetch(e.request)
+      .then((response) => {
+        // Se a rede responder, atualiza o cache e retorna a resposta
+        if (response.status === 200) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, responseClone);
+          });
         }
-
-        return fetch(event.request).then(response => {
-          // Check if we received a valid response
-          if (!response || response.status !== 200 || response.type === 'error') {
-            return response;
-          }
-
-          // Clone the response
-          const responseToCache = response.clone();
-          
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
+        return response;
       })
       .catch(() => {
-        // Return offline page if needed
-        return new Response('Aplicativo indisponível offline', {
-          status: 503,
-          statusText: 'Service Unavailable',
-          headers: new Headers({
-            'Content-Type': 'text/plain'
-          })
+        // Se a rede falhar (offline), busca no cache
+        return caches.match(e.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          // Caso específico para a raiz ou index.html
+          if (e.request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
         });
       })
   );
